@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:VideoPlay"
+               xmlns:mm="clr-namespace:MediaManager.Forms;assembly=MediaManager.Forms"
+             BackgroundColor="Black"
+             x:Class="VideoPlay.MainPage">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Utilisation du Plugin.MediaManage"  
+                   FontSize="20"  
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   Margin="20"/>
+            <StackLayout>
+                <mm:VideoView HeightRequest="202"  
+                             WidthRequest="202" VerticalOptions="FillAndExpand" 
+                              ShowControls="False" />
+            </StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="PrevButtonText"  
+                    Text="Prev"  
+                    TextColor="Black"
+                        Grid.Column="0"
+                        Grid.Row="5"/>
+                <Button x:Name="PlayStopButtonText"  
+                    Text="Play"   
+                    Clicked="PlayStopButton"  
+                    TextColor="Black"
+                        Grid.Column="1"
+                        Grid.Row="5"/>
+                <Button x:Name="NextButtonText"  
+                    Text="Next"   
+                        Clicked="NextButtonText_Clicked"
+                    TextColor="Black"
+                        Grid.Column="2"
+                        Grid.Row="5"/>
+            </Grid>
+            <Slider VerticalOptions="FillAndExpand"
+                    x:Name="Evolution"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>
