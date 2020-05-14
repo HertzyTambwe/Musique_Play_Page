@@ -11,6 +11,7 @@ namespace VideoPlay
 {
     public partial class MainPage : ContentPage
     {
+        private TimeSpan duration;
         public IList<string> Mp3UrlList => new[]{
                 "https://ia800806.us.archive.org/15/items/Mp3Playlist_555/AaronNeville-CrazyLove.mp3",
                 "https://ia800605.us.archive.org/32/items/Mp3Playlist_555/CelineDion-IfICould.mp3",
@@ -21,6 +22,44 @@ namespace VideoPlay
         public MainPage()
         {
             InitializeComponent();
+            CrossMediaManager.Current.PositionChanged += Current_PositionChanged;
+            CrossMediaManager.Current.StateChanged += Current_StateChanged;
+        }
+
+        private void Current_StateChanged(object sender, MediaManager.Playback.StateChangedEventArgs e)
+        {
+            switch (e.State)
+            {
+                case MediaManager.Player.MediaPlayerState.Stopped:
+                    loadingIndicator.IsRunning = false;
+                    break;
+                case MediaManager.Player.MediaPlayerState.Loading:
+                    loadingIndicator.IsRunning = true;
+                    break;
+                case MediaManager.Player.MediaPlayerState.Buffering:
+                    loadingIndicator.IsRunning = true;
+                    break;
+                case MediaManager.Player.MediaPlayerState.Playing:
+                    loadingIndicator.IsRunning = false;
+                    break;
+                case MediaManager.Player.MediaPlayerState.Paused:
+                    loadingIndicator.IsRunning = false;
+                    break;
+                case MediaManager.Player.MediaPlayerState.Failed:
+                    loadingIndicator.IsRunning = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Current_PositionChanged(object sender, MediaManager.Playback.PositionChangedEventArgs e)
+        {
+            //Get Current Track duration
+            duration = CrossMediaManager.Current.Duration;
+
+            var progession = (e.Position.TotalSeconds / duration.TotalSeconds);
+            TrackProgression.Value = progession;
         }
 
         private void PlayStopButton(object sender, EventArgs e)
@@ -28,6 +67,7 @@ namespace VideoPlay
             if (PlayStopButtonText.Text == "Play")
             {
                 CrossMediaManager.Current.Play(Mp3UrlList);
+                loadingIndicator.IsRunning = true;
 
                 PlayStopButtonText.Text = "Stop";
             }
@@ -47,6 +87,13 @@ namespace VideoPlay
         {
 
             await CrossMediaManager.Current.PlayNext();
+        }
+
+        private void TrackProgression_DragCompleted(object sender, EventArgs e)
+        {
+            var trackProgression = TrackProgression.Value;
+
+            CrossMediaManager.Current.SeekTo(TimeSpan.FromSeconds(trackProgression));
         }
     }
 }
