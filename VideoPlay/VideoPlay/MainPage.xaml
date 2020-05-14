@@ -14,41 +14,37 @@
                    HorizontalOptions="Center"
                    Margin="20"/>
             <StackLayout>
-                <mm:VideoView HeightRequest="202"  
-                             WidthRequest="202" VerticalOptions="FillAndExpand" 
+                <mm:VideoView HeightRequest="400"  
+                             WidthRequest="200" VerticalOptions="FillAndExpand" 
                               ShowControls="False" />
+                <ProgressBar x:Name="Progression"
+                         ProgressColor="White"
+                             Progress="5.0"
+                             Margin="5"/>
             </StackLayout>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="PrevButtonText"  
                     Text="Prev"  
                     TextColor="Black"
-                        Grid.Column="0"
-                        Grid.Row="5"/>
+                        Grid.Column="0"/>
                 <Button x:Name="PlayStopButtonText"  
                     Text="Play"   
                     Clicked="PlayStopButton"  
                     TextColor="Black"
-                        Grid.Column="1"
-                        Grid.Row="5"/>
+                        Grid.Column="1"/>
                 <Button x:Name="NextButtonText"  
                     Text="Next"   
                         Clicked="NextButtonText_Clicked"
                     TextColor="Black"
-                        Grid.Column="2"
-                        Grid.Row="5"/>
+                        Grid.Column="2"/>
             </Grid>
-            <Slider VerticalOptions="FillAndExpand"
-                    x:Name="Evolution"/>
+            
 
         </StackLayout>
     </ContentPage.Content>

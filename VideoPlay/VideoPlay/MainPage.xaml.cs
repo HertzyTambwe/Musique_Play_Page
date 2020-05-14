@@ -28,7 +28,6 @@ namespace VideoPlay
             if (PlayStopButtonText.Text == "Play")
             {
                 CrossMediaManager.Current.Play(Mp3UrlList);
-
                 PlayStopButtonText.Text = "Stop";
             }
             else if (PlayStopButtonText.Text == "Stop")
